@@ -69,4 +69,23 @@ class Show extends Shuyin_Controller {
         }
         $this->response_result(0, '', $result);
     }
+
+    // 更新秀审核状态
+    public function update_show_state(){
+        $sid = trim($this->parse_post('sid'));
+        $state = intval($this->parse_post('state'));
+        $where = array(
+            'arr_sid' => explode(',',$sid),
+            'state' => $state
+        );
+
+        $ret = $this->mod_show->update_show_state($where);
+        
+        if($ret){
+            $this->response_result(0,"success");
+        }else{
+            $this->response_result(204, '更新失败');
+        }
+        
+    }
 }
